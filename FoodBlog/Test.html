@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Aurora Eats</title>
+  <meta name="description" content="Aurora Eats — a modern, single-file HTML food blog example using advanced semantic HTML and modern CSS features (no external JS).">
+
+  <!-- Theme colors via CSS custom properties; data URI favicon -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23FF6B6B'/%3E%3Ctext x='50' y='58' font-size='48' text-anchor='middle' font-family='Arial' fill='white'%3E%E2%98%95%3C/text%3E%3C/svg%3E">
+
+  <style>
+    /* CSS RESET (minimal) */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;line-height:1.45;color:#0f172a;background:linear-gradient(180deg,#fff 0%, #fbfbfd 40%);}
+
+    /* Design tokens */
+    :root{
+      --accent: #FF6B6B;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --glass: rgba(255,255,255,0.65);
+      --radius: 14px;
+      --max-width: 1200px;
+      --gap: clamp(12px, 2vw, 28px);
+      --shadow: 0 6px 20px rgba(15,23,42,0.08), inset 0 1px 0 rgba(255,255,255,0.5);
+    }
+
+    /* Layout container */
+    .site{
+      max-width:var(--max-width);
+      margin:32px auto;
+      padding:24px;
+      display:grid;grid-template-columns: 1fr 340px;gap:var(--gap);
+    }
+
+    header{grid-column:1/-1;display:flex;align-items:center;gap:18px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo svg{width:56px;height:56px}
+    .brand{font-weight:700;font-size:1.25rem;letter-spacing:0.2px}
+    .tagline{color:var(--muted);font-size:0.95rem}
+
+    /* Hero */
+    .hero{
+      background:linear-gradient(120deg, rgba(255,107,107,0.06), rgba(99,102,241,0.04));
+      border-radius:var(--radius);
+      padding:18px;display:grid;grid-template-columns:1fr 420px;align-items:center;gap:20px;box-shadow:var(--shadow);
+    }
+
+    .hero-illustration{display:flex;justify-content:center}
+    .hero-illustration svg{width:100%;max-width:380px;height:auto}
+
+    .hero-copy h1{margin:0;font-size:clamp(1.6rem,2.8vw,2.4rem)}
+    .hero-copy p{color:var(--muted);margin-top:6px}
+
+    .search-wrap{display:flex;gap:8px;margin-top:14px}
+    .search-wrap input[type=search]{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(15,23,42,0.06);outline: none}
+    .search-wrap button{padding:12px 16px;border-radius:10px;border:0;background:var(--accent);color:white;font-weight:600}
+
+    /* Main content */
+    main{background:transparent}
+    .grid{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px
+    }
+
+    /* Recipe card (advanced semantics + responsive images + <figure>) */
+    article.card{background:var(--card);border-radius:12px;padding:14px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;gap:12px}
+    article.card header{display:flex;justify-content:space-between;align-items:center}
+    .eyebrow{font-size:0.82rem;color:var(--muted)}
+    .card h2{margin:0;font-size:1.05rem}
+    .meta{font-size:0.86rem;color:var(--muted);display:flex;gap:10px;align-items:center}
+
+    figure{margin:0;border-radius:10px;overflow:hidden}
+    figure img{width:100%;height:220px;object-fit:cover;display:block}
+    .card .actions{display:flex;gap:8px}
+    .btn{padding:8px 12px;border-radius:10px;border:1px solid rgba(15,23,42,0.06);background:transparent;font-weight:600}
+    .btn.heart{background:linear-gradient(90deg,var(--accent),#ff8a76);color:white;border:0}
+
+    /* CSS-only tabs using details/summary for accessible recipe steps */
+    details.recipe{background:linear-gradient(180deg, rgba(247,250,252,0.6), rgba(255,255,255,0.4));padding:12px;border-radius:12px;border:1px solid rgba(15,23,42,0.03)}
+    details[open] summary::after{content:"▲";float:right}
+    details summary{list-style:none;cursor:pointer;font-weight:700}
+    details summary::-webkit-details-marker{display:none}
+    .steps{margin-top:8px;padding-left:12px}
+
+    /* Sidebar */
+    aside{position:relative}
+    .sticky{position:sticky;top:24px;display:flex;flex-direction:column;gap:14px}
+    .about, .newsletter, .tags{background:var(--card);padding:16px;border-radius:12px;box-shadow:var(--shadow)}
+
+    /* CSS-only carousel (auto-play) */
+    .carousel{--h:180px;overflow:hidden;border-radius:12px}
+    .slides{display:flex;animation:slide 16s linear infinite}
+    .slides figure{min-width:100%;height:var(--h);margin:0}
+    .slides img{height:var(--h);width:100%;object-fit:cover}
+    @keyframes slide{
+      0%{transform:translateX(0)}
+      25%{transform:translateX(0)}
+      33%{transform:translateX(-100%)}
+      58%{transform:translateX(-100%)}
+      66%{transform:translateX(-200%)}
+      91%{transform:translateX(-200%)}
+      100%{transform:translateX(0)}
+    }
+
+    /* Footer */
+    footer{grid-column:1/-1;margin-top:20px;padding:18px;border-radius:12px;text-align:center;color:var(--muted);font-size:0.95rem}
+
+    /* Accessibility tweaks */
+    a{color:inherit;text-decoration:none}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* Responsive: collapse to one column on small screens */
+    @media (max-width:980px){.site{grid-template-columns:1fr;padding:16px}.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.site aside{order:-1}}
+
+    /* Use prefers-color-scheme for dark mode */
+    @media (prefers-color-scheme:dark){:root{--card:#071028;background:linear-gradient(180deg,#061425,#041222);--glass:rgba(11,22,34,0.6);--muted:#9aa7b6}body{color:#e6eef8;background:linear-gradient(180deg,#031020,#061427)}}
+
+    /* Small 'fancy' micro-animations */
+    .pulse{display:inline-block;animation:pulse 3s infinite}
+    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+
+    /* container queries (where supported) */
+    @container (min-width:500px){.card{grid-template-columns:1fr 1fr}}
+
+  </style>
+
+</head>
+<body>
+  <div class="site">
+
+    <header>
+      <div class="logo" aria-hidden="false">
+        <!-- inline SVG logo -->
+        <svg viewBox="0 0 100 100" role="img" aria-labelledby="logoTitle" xmlns="http://www.w3.org/2000/svg">
+          <title id="logoTitle">Aurora Eats logo</title>
+          <defs>
+            <linearGradient id="g" x1="0" x2="1">
+              <stop offset="0" stop-color="#FF6B6B"/>
+              <stop offset="1" stop-color="#FFB86B"/>
+            </linearGradient>
+          </defs>
+          <rect rx="18" width="100" height="100" fill="url(#g)"/>
+          <g transform="translate(18,20) scale(0.7)" fill="white">
+            <path d="M6 30c0-9 10-20 24-20s24 11 24 20-11 20-24 20S6 39 6 30z"/>
+          </g>
+        </svg>
+        <div>
+          <div class="brand">Aurora Eats</div>
+          <div class="tagline">Seasonal recipes & joyful cooking</div>
+        </div>
+      </div>
+
+      <nav aria-label="Main navigation" style="margin-left:auto;display:flex;gap:12px;align-items:center">
+        <a href="#recipes">Recipes</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero" aria-label="Hero">
+      <div class="hero-copy">
+        <h1>Deliciously approachable recipes, photographed and written with love.</h1>
+        <p>Discover seasonal menus, quick weeknight meals, and weekend projects — all in a single-file demo that leans on modern HTML and CSS capabilities.</p>
+
+        <form class="search-wrap" role="search" aria-label="Search recipes" onsubmit="return false;">
+          <input type="search" placeholder="Search recipes or ingredients..." aria-label="Search recipes">
+          <button type="submit">Search</button>
+        </form>
+
+        <p style="margin-top:10px;color:var(--muted)">Pro tip: This demo uses <em>pure HTML + CSS</em> (no external JavaScript) to showcase advanced features like responsive images, <code>&lt;details&gt;</code>, CSS animations and more.</p>
+      </div>
+
+      <div class="hero-illustration" aria-hidden="true">
+        <!-- Decorative SVG plate illustration -->
+        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="max-width:420px">
+          <defs>
+            <radialGradient id="rg" cx="50%" cy="30%">
+              <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#f8fafc"/>
+            </radialGradient>
+          </defs>
+          <rect width="100%" height="100%" rx="16" fill="url(#rg)"/>
+          <g transform="translate(60,30)">
+            <ellipse cx="230" cy="150" rx="160" ry="85" fill="#fff6f6" stroke="#ffefef" stroke-width="2"/>
+            <circle cx="230" cy="125" r="34" fill="#FF6B6B"/>
+            <rect x="200" y="180" width="60" height="12" rx="6" fill="#FFE7D6"/>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <main>
+      <section id="recipes" aria-labelledby="recipesTitle" style="margin-top:22px">
+        <h2 id="recipesTitle">Latest Recipes</h2>
+
+        <div class="grid" role="list">
+
+          <!-- Recipe card 1: uses <picture> with srcset and lazy-loading -->
+          <article class="card" role="listitem" aria-labelledby="r1">
+            <header>
+              <div>
+                <div class="eyebrow">30 min · Dinner</div>
+                <h2 id="r1">Lemon Herb Chicken with Roasted Veggies</h2>
+                <div class="meta">By <strong>Marin</strong> · 5 ingredients · 4.8★</div>
+              </div>
+              <div class="actions">
+                <button class="btn">Save</button>
+                <button class="btn heart" aria-pressed="false">Like ❤</button>
+              </div>
+            </header>
+
+            <figure>
+              <picture>
+                <!-- art-direction: different crops for smaller screens -->
+                <source media="(max-width:600px)" srcset="https://images.unsplash.com/photo-1546069901-eacef0df6022?w=600&q=60">
+                <source media="(min-width:601px)" srcset="https://images.unsplash.com/photo-1546069901-eacef0df6022?w=1200&q=60">
+                <img loading="lazy" alt="Lemon Herb Chicken on plate" src="https://images.unsplash.com/photo-1546069901-eacef0df6022?w=1200&q=60">
+              </picture>
+            </figure>
+
+            <details class="recipe" open>
+              <summary>Show ingredients & steps</summary>
+              <div class="steps">
+                <p><strong>Ingredients</strong>: chicken breast, lemon, rosemary, thyme, mixed root vegetables, olive oil, salt.</p>
+                <ol>
+                  <li>Preheat oven to 220°C (425°F).</li>
+                  <li>Toss veggies with oil, roast 25–30 min.</li>
+                  <li>Sear chicken 2–3 min per side, finish in oven with lemon slices 8–10 min.</li>
+                </ol>
+              </div>
+            </details>
+          </article>
+
+          <!-- Recipe card 2: includes inline SVG badges and microformat attributes (schema-lite) -->
+          <article class="card" role="listitem" aria-labelledby="r2" itemscope itemtype="http://schema.org/Recipe">
+            <header>
+              <div>
+                <div class="eyebrow">Vegetarian · 20 min</div>
+                <h2 id="r2" itemprop="name">Chickpea & Avocado Toast</h2>
+                <div class="meta">By <strong itemprop="author">Lina</strong> · <span itemprop="recipeYield">2 servings</span></div>
+              </div>
+              <div class="actions">
+                <button class="btn">Share</button>
+                <button class="btn">Print</button>
+              </div>
+            </header>
+
+            <figure>
+              <img loading="lazy" alt="Chickpea and avocado toast" src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=1200&q=60">
+            </figure>
+
+            <details class="recipe">
+              <summary>Quick steps</summary>
+              <div class="steps" itemprop="recipeInstructions">
+                <ol>
+                  <li>Mash chickpeas with lemon, olive oil and spices.</li>
+                  <li>Toast bread, layer avocado, chickpea mix and top with herbs.</li>
+                </ol>
+              </div>
+            </details>
+          </article>
+
+          <!-- Recipe card 3: CSS only variant with 'badge' using SVG and accessibility features -->
+          <article class="card" role="listitem" aria-labelledby="r3">
+            <header>
+              <div>
+                <div class="eyebrow">Dessert · Weekend</div>
+                <h2 id="r3">Warm Berry Galette</h2>
+                <div class="meta">By <strong>Omar</strong> · Rustic baking</div>
+              </div>
+              <div class="actions" aria-hidden="true">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="url(#g)"/></svg>
+              </div>
+            </header>
+
+            <figure>
+              <img loading="lazy" alt="Berry galette on wooden board" src="https://images.unsplash.com/photo-1505253758477-1c234c9af3b2?w=1200&q=60">
+            </figure>
+
+            <details class="recipe">
+              <summary>Bake it</summary>
+              <div class="steps">
+                <p>Quick rustic galette using frozen berries, fold edges, brush with egg, bake 35–40 min.</p>
+              </div>
+            </details>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- A subtle separator -->
+      <div style="height:8px"></div>
+
+      <!-- A semantic section with chef's note and printable microformat -->
+      <section aria-labelledby="noteTitle">
+        <h3 id="noteTitle">Chef's Note</h3>
+        <p style="color:var(--muted)">Every recipe is intentionally minimal — we test for flavor density, not complexity. Use seasonal produce for the best results.</p>
+
+        <article class="card" style="margin-top:12px">
+          <h4>How we test recipes (semantic list)</h4>
+          <ol>
+            <li>Simple ingredient list</li>
+            <li>One-pan or single-sheet methods where possible</li>
+            <li>Flavor balance: acid, fat, salt, and aromatics</li>
+          </ol>
+        </article>
+      </section>
+
+    </main>
+
+    <aside>
+      <div class="sticky">
+        <div class="about" id="about">
+          <h3>About Aurora Eats</h3>
+          <p class="muted">A small team of home cooks and photographers sharing approachable seasonal recipes.</p>
+        </div>
+
+        <div class="newsletter" aria-labelledby="newsTitle">
+          <h3 id="newsTitle">Newsletter</h3>
+          <p style="color:var(--muted)">No spam — weekly recipes and occasional behind-the-scenes.</p>
+          <form onsubmit="return false;" aria-label="Sign up for newsletter">
+            <label class="sr-only" for="email">Email address</label>
+            <input id="email" placeholder="you@email.com" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(15,23,42,0.06)">
+            <button style="width:100%;margin-top:8px;padding:10px;border-radius:8px;border:0;background:var(--accent);color:white">Subscribe</button>
+          </form>
+        </div>
+
+        <div class="tags">
+          <h4>Popular tags</h4>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+            <a class="btn" href="#">#weeknight</a>
+            <a class="btn" href="#">#vegetarian</a>
+            <a class="btn" href="#">#baking</a>
+            <a class="btn" href="#">#onepan</a>
+          </div>
+        </div>
+
+        <div class="carousel" aria-hidden="false" aria-label="Featured">
+          <div class="slides" role="list">
+            <figure role="listitem"><img alt="Featured 1" src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200&q=60"></figure>
+            <figure role="listitem"><img alt="Featured 2" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=60"></figure>
+            <figure role="listitem"><img alt="Featured 3" src="https://images.unsplash.com/photo-1543332164-5d58b7f6c0c3?w=1200&q=60"></figure>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <footer id="contact">
+      <p>&copy; <time datetime="2025-10-07">2025</time> Aurora Eats • Built with modern HTML & CSS • <a href="#">Privacy</a></p>
+    </footer>
+
+  </div>
+
+  <!-- Lightweight JSON-LD schema for search engines (non-executable data) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Blog",
+    "name":"Aurora Eats",
+    "description":"Seasonal recipes & joyful cooking",
+    "url":"https://example.com"
+  }
+  </script>
+
+</body>
+</html>
