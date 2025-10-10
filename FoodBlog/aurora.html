@@ -1,59 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>CatMania</title>
- <link rel="icon" type="image/x-icon" href="feline.webp">
-<style>
-h1   {color: blue;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatMania</title>
+    <link rel="icon" type="image/x-icon" href="feline.webp">
+
+    <style>
+        /* General body styling */
+        body {
+            background-color: powderblue;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Headings */
+        h1 {
+            color: blue;
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        h3 {
+            color: white;
+            font-family: cursive, serif;
+        }
+
+        /* Paragraphs */
+        p {
+            margin: 10px 0;
+        }
+
+        /* Links */
+        a:link {
+            color: black;
+            text-decoration: none;
+        }
+        a:visited {
+            color: red;
+        }
+        a:hover {
+            color: yellow;
+            text-decoration: underline;
+        }
+        a:active {
+            color: green;
+            text-decoration: underline;
+        }
+
+        /* Container for article */
+        .article {
+            background-color: #FFF4A3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        /* Image */
+        img {
+            display: block;
+            margin: 10px auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Citation */
+        cite {
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        /* MyContainer for columns */
+        .mycontainer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .mycontainer > div {
+            width: 30%;
+            padding: 10px;
+            border-radius: 5px;
+            color: #000;
+            box-sizing: border-box;
+        }
+
+        /* Example colors */
+        .red { background-color: red; }
+        .yellow { background-color: yellow; }
+        .green { background-color: green; }
+
+        /* Highlight & text formatting */
+        .highlight { color: blue; font-weight: bold; }
+        mark { background-color: yellow; }
+    </style>
 </head>
-<body style="background-color:powderblue;">
+<body>
 
-    <!-- This is for comments only -->
-
-
-
-<h1 style="font-size:60px;">Cats</h1>
-<p style="color: red; border:2px solid Violet;">The cat (Felis catus), also referred to as the domestic cat or house cat, 
-    is a small domesticated carnivorous mammal. It is the only domesticated 
-    species of the family Felidae. Advances in archaeology and genetics have 
-    shown that the domestication of the cat occurred in the Near East around 
-    7500 BC.<br>It is commonly kept as a pet and working cat, but it also ranges 
-    freely as a feral cat, avoiding human contact. It is valued by humans for 
-    companionship and its ability to kill vermin. Its retractable claws are 
-    adapted to killing small prey species such as mice and rats. It has a
-    strong, flexible body, quick reflexes, and sharp teeth, and its night vision 
-    and sense of smell are well developed. It is a social species, but a solitary
-     hunter and a crepuscular predator.</p>
+    <div class="article">
+        <h1>Cats</h1>
+        <p><a href="#C4">Unique Cats</a></p>
+        <p style="color: red; border: 2px solid violet;">
+            The cat (Felis catus), also referred to as the domestic cat or house cat, 
+            is a small domesticated carnivorous mammal. It is the only domesticated 
+            species of the family Felidae. <span class="highlight">Advances</span> in archaeology and genetics 
+            have shown that the domestication of the cat occurred in the Near East around 7500 BC.
+            It is commonly kept as a pet and working cat, but it also ranges freely as a feral cat, 
+            avoiding human contact. It is valued by humans for companionship and its ability to kill vermin. 
+            Its retractable claws are adapted to killing small prey species such as mice and rats. It has a
+            strong, flexible body, quick reflexes, and sharp teeth, and its night vision and sense of smell 
+            are well developed. It is a social species, but a solitary hunter and a crepuscular predator.
+        </p>
+    </div>
 
     <img src="cat.jpeg" width="200" height="150" alt="Cat" title="Kitty">
     <p><cite>The Cat</cite> by Edvard Munch. Painted in 1893.</p>
-    <br><a href=https://en.wikipedia.org/wiki/Cat>Visit the source</a>
+
+    <p>
+        <a href="https://en.wikipedia.org/wiki/Cat" target="_blank">Visit the source (new tab)</a> |
+        <a href="https://en.wikipedia.org/wiki/Cat" target="_parent">Visit the source (_parent)</a> |
+        <a href="https://en.wikipedia.org/wiki/Cat" target="_top">Visit the source (_top)</a> |
+        <a href="https://en.wikipedia.org/wiki/Cat" target="_self">Visit the source (_self)</a>
+    </p>
+
+    <p><a href="mailto:ji@gmail.com">Contact Us</a></p>
+
+    <iframe src="https://en.wikipedia.org/wiki/Cat" title="Cat" width="100%" height="400"></iframe>
 
     <hr>
-    <h3 style="color: white; font-family: cursive, serif;">
-    <pre><p style="background-color:tomato; text-align:center;">
-        Cat communication includes meowing, purring, trilling, hissing, growling, 
-        grunting, and body language. It can hear sounds too faint or too high in 
-        frequency for human ears, such as those made by small mammals. It secretes 
-        and perceives pheromones. Cat intelligence is evident in its ability to adapt, 
-        learn through observation, and solve problems.
-        
-        Female domestic cats can have kittens from spring to late autumn in temperate 
-        zones and throughout the year in equatorial regions, with litter sizes often ranging 
-        from two to five kittens. Domestic cats are bred and shown at cat fancy events as 
-        registered pedigreed cats. Population control includes spaying and 
-        neutering, but pet abandonment has exploded the global feral cat population, which has 
-        driven the extinction of bird, mammal, and reptile species.</p></pre></h3>
-    <hr>
 
+    <h3>
+        <p style="background-color: tomato; text-align: center; padding: 10px;">
+            Cat communication includes meowing, purring, trilling, hissing, growling, grunting, and body language. 
+            It can hear sounds too faint or too high in frequency for human ears, such as those made by small mammals. 
+            It secretes and perceives pheromones. Cat intelligence is evident in its ability to adapt, 
+            learn through observation, and solve problems.
+        </p>
+    </h3>
+
+    <hr>
 
     <p><b>Domestic cats occur <ins>across</ins> the globe,</b> though their popularity 
         as pets <strong>varies by region</strong>. Out of the estimated 600 million <mark>cats</mark> 
         worldwide, <del>400</del> million reside in Asia, including 58 million pet 
-        cats in <i>China</i>. The United States leads in cat <em style="color:white">ownership</em> with 73.8 
+        cats in <i>China</i>. The United States leads in cat <em>ownership</em> with 73.8 
         million cats. In the United Kingdom, approximately 10.9 million 
-        <small>domestic</small> cats are kept as pets. H<sub>2</sub>O To the power of 2: 5<sup>2</sup>.</p>
+        <small>domestic</small> cats are kept as pets. H<sub>2</sub>O To the power of 2: 5<sup>2</sup>.
+    </p>
+
+    <h1 id="C4">Unique Cats</h1>
+    <p>Personality and Care Savannahs are known for their loyalty, often compared to dogs 
+        in their devotion to their human families. They possess a high level of energy and 
+        intelligence, requiring both physical exercise and mental stimulation to stay happy. 
+        Interactive play sessions and challenging puzzles can keep a Savannah engaged.
+        <br><br>
+        Health and Well-being: As a relatively healthy breed, Savannahs still benefit from proactive health care, 
+        including regular check-ups, vaccinations, and preventive measures against common feline ailments. 
+        Their diet should be rich in high-quality proteins to mirror the nutritional intake of their wild ancestors.
+        <br><br>
+        Living with a Savannah: These cats love to climb and explore, making it essential to provide them with safe, accessible 
+        high places within the home. They are also incredibly social and thrive on attention and interaction, 
+        so integrating them into your daily activities is key to their well-being.
+        <br><br>
+        The Savannah's blend of wild looks and affectionate, loyal nature makes them a unique companion, 
+        offering a glimpse into the wild from the comfort of your home. <br>Their care requires attention to 
+        their physical and mental needs, ensuring they have ample space to explore and engage with their environment.
+    </p>
+
+    <div class="mycontainer">
+        <div class="red">
+            <h2>Felis silvestris</h2>
+            <p>The European wildcat (Felis silvestris) is a small wildcat species native to continental Europe, Great Britain, Turkey and the Caucasus. Its fur is brownish to grey with stripes on the forehead and on the sides and has a bushy tail with a black tip. It reaches a head-to-body length of up to 65 cm (26 in) with a 34.5 cm (13.6 in) long tail, and weighs up to 7.5 kg (17 lb).</p>
+        </div>
+        <div class="yellow">
+            <h2>Iberian lynx</h2>
+            <p>The Iberian lynx (Lynx pardinus) is endemic to the Iberian Peninsula in southwestern Europe. It is listed as vulnerable on the IUCN Red List. Its population had declined because of overhunting, habitat fragmentation, and decline of its main prey species.</p>
+        </div>
+        <div class="green">
+            <h2>Eurasian lynx</h2>
+            <p>The Eurasian lynx has a relatively short, reddish or brown coat marked with black spots. Its underparts, neck, and chin are whitish. In winter, its fur thickens from silver-grey to greyish brown. It has a short "bobbed" tail with an all-black tip and black tufts of hair on its ears.</p>
+        </div>
+    </div>
 
 </body>
 </html>
